@@ -151,9 +151,11 @@ public class MainActivity extends AppCompatActivity {
                             iv.setImageBitmap(capturedImage);
                             byte[] dat = capturedTemplate.data;
                             byte[] mock = {'A', 'B', 'C'};
-                            SendDataHelper.sendData(MainActivity.this, mock, new SendDataHelper.SendDataCallback() {
+                            log("huella: "+ dat.toString());
+                            SendDataHelper.sendData(MainActivity.this, dat, new SendDataHelper.SendDataCallback() {
                                 @Override
                                 public void onSuccess(String response) {
+
                                     log("Send data Success" + response);
                                 }
 
@@ -388,6 +390,7 @@ public class MainActivity extends AppCompatActivity {
         leer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 ((ImageView) findViewById(R.id.finger)).setImageResource(R.drawable.huella);
                 //estado.setText(SN);
                 if(mCurrentDevice != null){

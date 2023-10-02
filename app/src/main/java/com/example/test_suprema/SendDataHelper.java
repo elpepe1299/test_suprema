@@ -2,6 +2,7 @@ package com.example.test_suprema;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -26,9 +27,10 @@ public class SendDataHelper {
     public static void sendData(Context context, byte[] capturedData, final SendDataCallback callback) {
         try {
             // URL del servicio web
-            String url = "http://192.168.1.53:3010/tiempo_posteo";
-
+            String url = "https://8fee-148-102-76-10.ngrok-free.app/tiempo_posteo";
+            Toast.makeText(context, "URL: "+ url, Toast.LENGTH_SHORT).show();
             // Crear un objeto JSON con el campo "huella"
+
             String base64Data = Base64.getEncoder().encodeToString(capturedData);
             JSONObject jsonRequest = new JSONObject();
             jsonRequest.put("huella", base64Data);
@@ -46,10 +48,12 @@ public class SendDataHelper {
                         public void onResponse(JSONObject response) {
                             try {
                                 // Manejar la respuesta del servidor
-                                String result = response.getString("resultado");
+                                Log.i("", "DATA ESPERADA" + response);
+                                String result = response.getString("message");
                                 callback.onSuccess(result);
                             } catch (JSONException e) {
                                 e.printStackTrace();
+                                Log.i("", "DATA ESPERADA" + response);
                                 callback.onError("Error al analizar la respuesta JSON");
                             }
                         }
